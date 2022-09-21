@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
-from .forms import CategoriaForm, SubCategoriaForm, MarcaForm, UnidadMedidaForm
+from .forms import CategoriaForm, SubCategoriaForm, MarcaForm, UnidadMedidaForm, ProductoForm
 
 class CategoriaView(LoginRequiredMixin, generic.ListView):
     model = Categoria

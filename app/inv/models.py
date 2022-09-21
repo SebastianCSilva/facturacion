@@ -64,7 +64,7 @@ class UnidadMedida(ClaseModelo):
 class Producto(ClaseModelo):
     codigo = models.CharField(max_length=20, unique=True)
     codigo_barra = models.CharField(max_length=50)
-    descripcion = models.CharField(max_length=100, help_text='Descripcion de la Unidad Medida', unique=True)
+    descripcion = models.CharField(max_length=100, unique=True)
     precio = models.FloatField(default=0)
     existencia = models.IntegerField(default=0)
     ultima_compra = models.DateTimeField(null=True, blank=True)
