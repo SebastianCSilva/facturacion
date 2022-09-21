@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import generic
-from .models import Categoria, SubCategoria, Marca, UnidadMedida
+from .models import Categoria, SubCategoria, Marca, UnidadMedida, Producto
 from django.urls import reverse_lazy
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -140,9 +140,6 @@ def marca_inactivar(request, id):
 
     return render(request, template_name, contexto)
 
-
-
-
 class UMView(LoginRequiredMixin, generic.ListView):
     model = UnidadMedida
     template_name = "inv/um_list.html"
@@ -192,6 +189,60 @@ def um_inactivar(request, id):
         um.estado = False
         um.save()
         return redirect("inv:um_list")
+
+
+    return render(request, template_name, contexto)
+
+
+class ProductoView(LoginRequiredMixin, generic.ListView):
+    model = Producto
+    template_name = "inv/producto_list.html"
+    context_object_name = "obj"
+    login_url = 'bases:login'
+
+
+class ProductoNew(LoginRequiredMixin, generic.CreateView):
+    model = Producto
+    template_name = "inv/producto_form.html"
+    context_object_name = "obj"
+    
+    form_class = ProductoForm
+    success_url = reverse_lazy("inv:producto_list")
+    login_url = 'bases:login'
+
+    def form_valid(self, form):
+        form.instance.usuario_crea = self.request.user
+        return super().form_valid(form)
+
+
+class ProductoEdit(LoginRequiredMixin, generic.UpdateView):
+    model = Producto
+    template_name = "inv/producto_form.html"
+    context_object_name = "obj"
+    
+    form_class = ProductoForm
+    success_url = reverse_lazy("inv:producto_list")
+    login_url = 'bases:login'
+
+    def form_valid(self, form):
+        form.instance.usuario_modifica = self.request.user.id
+        return super().form_valid(form)
+
+def producto_inactivar(request, id):
+    producto = Producto.objects.filter(pk=id).first()
+    contexto = {}
+    template_name = "inv/catalogos_del.html"
+
+    if not producto:
+        return redirect("inv:producto_list")
+
+    if request.method == 'GET':
+        contexto = {'obj':producto}
+    
+    if request.method == 'POST':
+        producto.estado = False
+        producto.save()
+        return redirect("inv:producto_list")
 
 
     return render(request, template_name, contexto)
