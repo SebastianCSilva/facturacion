@@ -3,6 +3,7 @@ from django.views import generic
 from .models import Categoria, SubCategoria, Marca, UnidadMedida, Producto
 from django.urls import reverse_lazy
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from .forms import CategoriaForm, SubCategoriaForm, MarcaForm, UnidadMedidaForm, ProductoForm
@@ -135,6 +136,7 @@ def marca_inactivar(request, id):
     if request.method == 'POST':
         marca.estado = False
         marca.save()
+        messages.success(request, 'Marca Inactivada')
         return redirect("inv:marca_list")
 
 
