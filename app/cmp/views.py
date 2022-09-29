@@ -40,7 +40,7 @@ class ProveedorEdit(LoginRequiredMixin, generic.UpdateView):
     context_object_name = "obj"
     
     form_class = ProveedorForm
-    success_url = reverse_lazy("cmo:proveedor_list")
+    success_url = reverse_lazy("cmp:proveedor_list")
     login_url = 'bases:login'
 
     def form_valid(self, form):
