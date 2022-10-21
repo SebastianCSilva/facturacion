@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse
 import json
 
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from .forms import ProveedorForm
@@ -24,7 +25,7 @@ class ProveedorNew(LoginRequiredMixin, generic.CreateView):
     model = Proveedor
     template_name = "cmp/proveedor_form.html"
     context_object_name = "obj"
-    
+
     form_class = ProveedorForm
     success_url = reverse_lazy("cmp:proveedor_list")
     login_url = 'bases:login'
@@ -38,7 +39,7 @@ class ProveedorEdit(LoginRequiredMixin, generic.UpdateView):
     model = Proveedor
     template_name = "cmp/proveedor_form.html"
     context_object_name = "obj"
-    
+
     form_class = ProveedorForm
     success_url = reverse_lazy("cmp:proveedor_list")
     login_url = 'bases:login'
@@ -57,7 +58,7 @@ def proveedor_inactivar(request, id):
         return HttpResponse('Proveedor no existe '+ str(id))
     if request.method == 'GET':
         contexto = {'obj':proveedor}
-    
+
     if request.method == 'POST':
         proveedor.estado = False
         proveedor.save()
