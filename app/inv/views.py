@@ -12,7 +12,7 @@ from bases.views import SinPrivilegios
 # Create your views here.
 from .forms import CategoriaForm, SubCategoriaForm, MarcaForm, UnidadMedidaForm, ProductoForm
 
-class CategoriaView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+class CategoriaView(SinPrivilegios, generic.ListView):
     permission_required = "inv.view_categoria"
     model = Categoria
     template_name = "inv/categoria_list.html"
@@ -42,7 +42,6 @@ class CategoriaEdit(SuccessMessageMixin, LoginRequiredMixin, generic.UpdateView)
 
     form_class = CategoriaForm
     success_url = reverse_lazy("inv:categoria_list")
-    login_url = 'bases:login'
     success_message="Categoria Actualizada Satisfactoriamente"
 
     def form_valid(self, form):
@@ -56,12 +55,11 @@ class CategoriaDel(LoginRequiredMixin, generic.DeleteView):
     context_object_name = "obj"
     success_url = reverse_lazy("inv:categoria_list")
 
-class SubCategoriaView(LoginRequiredMixin, SinPrivilegios, generic.ListView):
+class SubCategoriaView(SinPrivilegios, generic.ListView):
     permission_required = "inv.view_subcategoria"
     model = SubCategoria
     template_name = "inv/subcategoria_list.html"
     context_object_name = "obj"
-    login_url = 'bases:login'
 
 class SubCategoriaNew(LoginRequiredMixin, generic.CreateView):
     model = SubCategoria
@@ -96,12 +94,11 @@ class SubCategoriaDel(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("inv:subcategoria_list")
 
 
-class MarcaView(LoginRequiredMixin, SinPrivilegios, generic.ListView):
+class MarcaView(SinPrivilegios, generic.ListView):
     permission_required = "inv.view_marca"
     model = Marca
     template_name = "inv/marca_list.html"
     context_object_name = "obj"
-    login_url = 'bases:login'
 
 
 class MarcaNew(LoginRequiredMixin, generic.CreateView):
