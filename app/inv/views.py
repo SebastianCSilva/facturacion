@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
+
 from django.contrib.messages.views import SuccessMessageMixin
 
 from bases.views import SinPrivilegios
@@ -128,6 +130,8 @@ class MarcaEdit(LoginRequiredMixin, generic.UpdateView):
         form.instance.usuario_modifica = self.request.user.id
         return super().form_valid(form)
 
+@login_required(login_url='/login/')
+@permission_required('inv.change_marca', login_url='bases:sin_privilegios')
 def marca_inactivar(request, id):
     marca = Marca.objects.filter(pk=id).first()
     contexto = {}
