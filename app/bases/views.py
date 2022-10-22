@@ -1,6 +1,8 @@
 from django.shortcuts import HttpResponseRedirect, render
 from django.urls import reverse_lazy
 
+from django.contrib.auth.models import AnonymousUser
+
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views import generic
 # Create your views here.
@@ -11,6 +13,9 @@ class SinPrivilegios(PermissionRequiredMixin):
     redirect_field_name = "redirect_to"
 
     def handle_no_permission(self):
+
+        if not self.request.user==AnonymousUser():
+            self.login_url='bases:sin_privilegios'
         self.login_url = 'bases:sin_privilegios'
         return HttpResponseRedirect(reverse_lazy(self.login_url))
 
