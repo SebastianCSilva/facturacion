@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
+from bases.views import SinPrivilegios
+
 # Create your views here.
 from .forms import CategoriaForm, SubCategoriaForm, MarcaForm, UnidadMedidaForm, ProductoForm
 
@@ -54,7 +56,7 @@ class CategoriaDel(LoginRequiredMixin, generic.DeleteView):
     context_object_name = "obj"
     success_url = reverse_lazy("inv:categoria_list")
 
-class SubCategoriaView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+class SubCategoriaView(LoginRequiredMixin, SinPrivilegios, generic.ListView):
     permission_required = "inv.view_subcategoria"
     model = SubCategoria
     template_name = "inv/subcategoria_list.html"
@@ -94,7 +96,8 @@ class SubCategoriaDel(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("inv:subcategoria_list")
 
 
-class MarcaView(LoginRequiredMixin, generic.ListView):
+class MarcaView(LoginRequiredMixin, SinPrivilegios, generic.ListView):
+    permission_required = "inv.view_marca"
     model = Marca
     template_name = "inv/marca_list.html"
     context_object_name = "obj"
