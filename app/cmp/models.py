@@ -1,5 +1,5 @@
 from django.db import models
-from app.inv.models import Producto
+from inv.models import Producto
 
 from bases.models import ClaseModelo
 
