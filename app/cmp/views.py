@@ -3,7 +3,7 @@ from django.views import generic
 import datetime
 from django.http import HttpResponse
 
-from app.inv.models import Producto
+from inv.models import Producto
 from .models import Proveedor, ComprasDet, ComprasEnc
 from django.urls import reverse_lazy
 
