@@ -49,7 +49,7 @@ def reporte_compras(request):
     context = {
         'obj': compras,
         'today': today,
-        'request': request
+        'request': request,
     }
 
     # Create a Django response object, and specify content_type as pdf
