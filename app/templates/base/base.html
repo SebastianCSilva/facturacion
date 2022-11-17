@@ -89,6 +89,11 @@
             {% if perms.cmp.view_proveedor %}
               <a class="collapse-item" href="{% url 'cmp:proveedor_list' %}">Proveedores</a>
             {% endif %}
+            <h6 class="collapse-item" href="{% url 'cmp:proveedor_list' %}">Catalogos de Facturacion:</h6>
+            {% if perms.fac.view_cliente %}
+              <a class="collapse-item" href="{% url 'fac:cliente_list' %}">Clientes</a>
+            {% endif %}
+
           </div>
         </div>
       </li>
