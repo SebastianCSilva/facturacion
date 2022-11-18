@@ -12,7 +12,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
               <div class="dropdown-header">Acciones:</div>
-              <a class="dropdown-item" onclick="return abrir_modal('{%# url 'cmp:proveedor_new' %}')" href="#"><i class="far fa-calendar-plus"></i> Nuevo</a>
+              <a class="dropdown-item" onclick="return abrir_modal('{% url 'fac:cliente_new' %}')" href="#"><i class="far fa-calendar-plus"></i> Nuevo</a>
 
             </div>
           </div>
@@ -42,7 +42,7 @@
                         <td>{{ item.celular }}</td>
                         <td>{{ item.estado|yesno:"Activo,Inactivo" }}</td>
                         <td>
-                            <button onclick="return abrir_modal('{%# url 'cmp:proveedor_edit' item.id %}')" class="btn btn-warning btn-circle"><i class="far fa-edit"></i></button>
+                            <button onclick="return abrir_modal('{% url 'fac:cliente_edit' item.id %}')" class="btn btn-warning btn-circle"><i class="far fa-edit"></i></button>
                             <button onclick="return abrir_modal('{%# url 'cmp:proveedor_inactivar' item.id %}')" class="btn btn-warning btn-circle"><i class="far fa-thumbs-down"></i></button>
 
                         </td>
