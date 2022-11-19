@@ -26,7 +26,7 @@ class VistaBaseCreate(SuccessMessageMixin, SinPrivilegios, generic.CreateView):
     success_message = "Registro Agregado Satisfactoriamente"
 
     def form_valid(self, form):
-        form.instance.uc = self.request.user
+        form.instance.usuario_crea = self.request.user
         return super().form_valid(form)
 
 
@@ -35,7 +35,7 @@ class VistaBaseEdit(SuccessMessageMixin, SinPrivilegios, generic.UpdateView):
     success_message = "Registro Actualizado Satisfactoriamente"
 
     def form_valid(self, form):
-        form.instance.uc = self.request.user
+        form.instance.usuario_crea = self.request.user
         return super().form_valid(form)
 
 
