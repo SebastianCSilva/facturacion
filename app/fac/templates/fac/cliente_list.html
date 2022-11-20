@@ -72,7 +72,7 @@
     $.ajax({
       headers : {"X-CSRFTOKEN": token},
       type: "POST",
-      url: "/fac/cliente/estado"+id,
+      url: "/fac/clientes/estado/"+id,
       data: data,
       success: function(response){
         if(response==="OK"){
