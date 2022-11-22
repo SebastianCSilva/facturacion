@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django_userforeignkey.models.fields import UserForeignKey
+
 
 # Create your models here.
 class ClaseModelo(models.Model):
