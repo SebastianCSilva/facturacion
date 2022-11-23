@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from models import Cliente
+from .models import Cliente
 
 from bases.views import SinPrivilegios
 from django.views import generic
