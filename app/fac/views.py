@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Cliente
+from .models import Cliente, FacturaEnc, FacturaDet
 
 from bases.views import SinPrivilegios
 from django.views import generic
@@ -68,3 +68,12 @@ def clienteInactivar(request, id):
         return HttpResponse("Fail")
 
     return HttpResponse("Fail")
+
+
+class FacturaView(SinPrivilegios, generic.ListView):
+    model = FacturaEnc
+    template_name = "fac/factura_list.html"
+    context_object_name = "obj"
+    permission_required = "fac.view_facturaenc"
+
+
