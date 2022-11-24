@@ -22,14 +22,17 @@
             {% if not obj %}
                 <div class="alert alert-info">No hay Clientes</div>
             {% endif %}
-            <table class="table table-striped table-hover">
+            <div class="buttons-toolbar">
+              <a class="dropdown-item" onclick="return abrir_modal('{% url 'fac:cliente_new' %}')" href="#"><i class="far fa-calendar-plus"></i> Nuevo</a>
+            </div>
+            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-toolbar=".buttons-toolbar" data-locale="es-NI">
                 <thead>
-                    <th>Id</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Tipo</th>
-                    <th>Telefono</th>
-                    <th>Estado</th>
+                    <th data-sortable="true" data-field="id">Id</th>
+                    <th data-sortable="true" data-field="nombres">Nombres</th>
+                    <th data-sortable="true" data-field="apellidos">Apellidos</th>
+                    <th data-sortable="true" data-field="tipo">Tipo</th>
+                    <th data-field="telefono">Telefono</th>
+                    <th data-field="estado">Estado</th>
                     <th class="all">Acciones</th>
                 </thead>
                 <tbody>
@@ -40,17 +43,18 @@
                         <td>{{ item.apellidos }}</td>
                         <td>{{ item.tipo }}</td>
                         <td>{{ item.celular }}</td>
-                        <td onclick="inactivar({{item.id}})">{# item.estado|yesno:"Activo,Inactivo" #}
-                          {% if item.estado %}
-                            <i class="far fa-thumbs-up text-primary"></i>
-                          {% else %}
-                            <i class="far fa-thumbs-down text-danger"></i>
-                          {% endif %}
+                        <td>{# item.estado|yesno:"Activo,Inactivo" #}
+                          <div onclick="inactivar({{item.id}})">
+                            {% if item.estado %}
+                              <i class="far fa-thumbs-up text-primary"></i>
+                            {% else %}
+                              <i class="far fa-thumbs-down text-danger"></i>
+                            {% endif %}
+                          </div>
                         </td>
                         <td>
                             <button onclick="return abrir_modal('{% url 'fac:cliente_edit' item.id %}')" class="btn btn-warning btn-circle"><i class="far fa-edit"></i></button>
                             <button onclick="return abrir_modal('{%# url 'cmp:proveedor_inactivar' item.id %}')" class="btn btn-warning btn-circle"><i class="far fa-thumbs-down"></i></button>
-
                         </td>
                     </tr>
                     {% endfor %}
@@ -89,35 +93,5 @@
       }
     });
   }
-
-
-  $(document).ready(function(){
-    $('.table').DataTable({
-      "language": {
-        "sProcessing": "Procesando...",
-        "sLengthMenu": "Mostrar _MENU_ registros",
-        "sZeroRecords": "No se encontraron resultados",
-        "sEmptyTable": "Ningun dato disponible en esta tabla",
-        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix": "",
-        "sSearch": "Buscar:",
-        "sUrl": "",
-        "sInfoThousands": ",",
-        "sLoadingRecords": "Cargando...",
-        "oPaginate": {
-          "sFirst": "<span class='fa fa-angle-double-left'></span>",
-          "sLast": "<span class='fa fa-angle-double-right'></span>",
-          "sNext": "<span class='fa fa-angle-right'></span>",
-          "sPrevious": "<span class='fa fa-angle-left'></span>",
-        },
-        "oAria": {
-          "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-          "sSortDescending": ": Activar para ordenar la columna de manera descendente",
-        }
-      }
-    });
-  });
 </script>
 {% endblock %}
