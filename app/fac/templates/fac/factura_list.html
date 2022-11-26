@@ -23,7 +23,7 @@
                 <div class="alert alert-info">No hay Facturas</div>
             {% endif %}
             <div class="buttons-toolbar">
-              <a class="dropdown-item"  href="#"><i class="far fa-calendar-plus"></i> Nuevo</a>
+              <a class="btn btn-success"  href="{% url 'fac:factura_new' %}"><i class="far fa-calendar-plus"></i> Nuevo</a>
             </div>
             <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-toolbar=".buttons-toolbar" data-locale="es-NI">
                 <thead>
