@@ -8,6 +8,8 @@ from django.shortcuts import get_list_or_404
 from .serializers import ProductoSerializer
 from inv.models import Producto
 
+from django.db.models import Q
+
 class ProductoList(APIView):
     """Retorno de todos los productos"""
     def get(self, request):
@@ -19,6 +21,6 @@ class ProductoList(APIView):
 class ProductoDetalle(APIView):
     """Retorno de producto individual"""
     def get(self, request, codigo):
-        prod = get_list_or_404(Producto, codigo=codigo)
+        prod = get_list_or_404(Producto, Q(codigo=codigo)|Q(codigo_barra=codigo))
         data = ProductoSerializer(prod).data
         return Response(data)
