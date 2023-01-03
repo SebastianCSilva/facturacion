@@ -144,7 +144,7 @@
                             <td>{{ item.descuento }}</td>
                             <td>{{ item.total }}</td>
                             <td>
-                                <button class="btn btn-warning btn-circle">
+                                <button class="btn btn-warning btn-circle" onclick="borrar_detalle({{ item.id }})">
                                     <i class="fas fa-history"></i>
                                 </button>
                             </td>
@@ -289,5 +289,23 @@
         $("#total").val("{{ enc.total }}");
 
     });
+
+    function borrar_detalle(id){
+        //mensaje(id);
+        $.confirm({
+            title: false,
+            content: 'url:callback.html',
+            onContentReady: function () {
+                //when content is fetched & rendered in DOM
+                alert('onContentReady');
+                ver self = this;
+                this.buttons.ok.disable();
+                this.$content.find('.btn').click(function(){
+                    self.$content.find('input').val('Chuck norris');
+                    self.buttons.ok.enable();
+                });
+            }
+        });
+    }
 </script>
 {% endblock %}
