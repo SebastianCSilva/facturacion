@@ -144,7 +144,7 @@
                             <td>{{ item.descuento }}</td>
                             <td>{{ item.total }}</td>
                             <td>
-                                <button class="btn btn-warning btn-circle" onclick="borrar_detalle({{ item.id }})">
+                                <button type="button" class="btn btn-warning btn-circle" onclick="borrar_detalle({{ item.id }})">
                                     <i class="fas fa-history"></i>
                                 </button>
                             </td>
@@ -293,17 +293,18 @@
     function borrar_detalle(id){
         //mensaje(id);
         $.confirm({
-            title: false,
-            content: 'url:callback.html',
+            theme:"modern",
+            icon:"fab fa-keycdn",
+            type:'red',
+            title: "Confirmacion Requerida",
+            content: 'url:/fac/facturas/borrar-detalle/' + id,
             onContentReady: function () {
-                //when content is fetched & rendered in DOM
-                alert('onContentReady');
                 ver self = this;
-                this.buttons.ok.disable();
-                this.$content.find('.btn').click(function(){
-                    self.$content.find('input').val('Chuck norris');
-                    self.buttons.ok.enable();
-                });
+                this.$content.find('#usuario').val('{{ user.username }}');
+                this.$content.find('#usuario').select();
+                this.$content.find('#usuario').focus();
+
+
             }
         });
     }
